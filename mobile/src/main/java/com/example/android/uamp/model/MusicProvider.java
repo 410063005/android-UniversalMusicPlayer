@@ -68,7 +68,8 @@ public class MusicProvider {
     }
 
     public MusicProvider() {
-        this(new RemoteJSONSource());
+//        this(new RemoteJSONSource());
+        this(new RemoteRSSSource());
     }
     public MusicProvider(MusicProviderSource source) {
         mSource = source;
@@ -276,6 +277,8 @@ public class MusicProvider {
                 buildListsByGenre();
                 mCurrentState = State.INITIALIZED;
             }
+        } catch (Exception e) {
+            LogHelper.e(TAG, e, "Could not retrieve music list");
         } finally {
             if (mCurrentState != State.INITIALIZED) {
                 // Something bad happened, so we reset state to NON_INITIALIZED to allow
